@@ -11,7 +11,7 @@ namespace Pandu_Gogi_Backend.Data
         }
 
         public DbSet<User> users { get; set; }
-
+        public DbSet<Category> categories { get; set; }
 
     }
 }
