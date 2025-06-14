@@ -1,0 +1,28 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+bin/
+obj/
+
+# ASP.NET
+appsettings*.json
+
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+build/
+captures/
+output.json
+
+# Node (kalau pakai npm/React juga nanti)
+node_modules/
+
+# Others
+*.log
+.env
