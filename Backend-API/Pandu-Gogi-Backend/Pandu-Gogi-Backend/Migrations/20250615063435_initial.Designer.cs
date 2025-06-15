@@ -11,8 +11,8 @@ using Pandu_Gogi_Backend.Data;
 namespace Pandu_Gogi_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250614144208_Category")]
-    partial class Category
+    [Migration("20250615063435_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,42 @@ namespace Pandu_Gogi_Backend.Migrations
                     b.HasKey("id");
 
                     b.ToTable("categories");
+                });
+
+            modelBuilder.Entity("Pandu_Gogi_Backend.Models.Entites.Menu", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("category_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("image_url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("order_count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("price")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("category_id");
+
+                    b.ToTable("menus");
                 });
 
             modelBuilder.Entity("Pandu_Gogi_Backend.Models.Entites.User", b =>
@@ -70,6 +106,22 @@ namespace Pandu_Gogi_Backend.Migrations
                     b.HasKey("id");
 
                     b.ToTable("users");
+                });
+
+            modelBuilder.Entity("Pandu_Gogi_Backend.Models.Entites.Menu", b =>
+                {
+                    b.HasOne("Pandu_Gogi_Backend.Models.Entites.Category", "category")
+                        .WithMany("menus")
+                        .HasForeignKey("category_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("category");
+                });
+
+            modelBuilder.Entity("Pandu_Gogi_Backend.Models.Entites.Category", b =>
+                {
+                    b.Navigation("menus");
                 });
 #pragma warning restore 612, 618
         }

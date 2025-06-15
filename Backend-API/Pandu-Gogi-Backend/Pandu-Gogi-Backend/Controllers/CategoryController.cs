@@ -93,7 +93,7 @@ namespace Pandu_Gogi_Backend.Controllers
                 db.categories.Remove(category);
                 db.SaveChanges();
 
-                return Ok(new {message = "Delete data success"});
+                return StatusCode(204, new {message = "Delete data success"});
 
             }
             catch (Exception err)
