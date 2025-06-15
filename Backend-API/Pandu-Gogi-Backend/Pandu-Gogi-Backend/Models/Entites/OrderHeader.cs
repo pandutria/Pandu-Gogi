@@ -12,6 +12,7 @@ namespace Pandu_Gogi_Backend.Models.Entites
 
         [ForeignKey("user_id")]
         public User user { get; set; }
+        public ICollection<OrderDetail> OrderDetails { get; set; }
 
     }
 }

@@ -14,6 +14,7 @@ namespace Pandu_Gogi_Backend.Data
         public DbSet<Category> categories { get; set; }
         public DbSet<Menu> menus { get; set; }
         public DbSet<OrderHeader> orderHeaders { get; set; }
+        public DbSet<OrderDetail> orderDetails { get; set; }
 
     }
 }

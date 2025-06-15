@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pandu_Gogi_Backend.Data;
+using Pandu_Gogi_Backend.Models.Dtos.OrderDetail;
 using Pandu_Gogi_Backend.Models.Dtos.OrderHeader;
 using Pandu_Gogi_Backend.Models.Dtos.User;
 using Pandu_Gogi_Backend.Models.Entites;
@@ -77,9 +78,10 @@ namespace Pandu_Gogi_Backend.Controllers
         {
             var user_id = User.FindFirst("id").Value;
             var user = db.users.FirstOrDefault(x => x.id.ToString() == user_id);
-            var order = db.orderHeaders.Where(x => x.user_id == user.id)
+            var order = db.orderHeaders.Include(x => x.OrderDetails).Where(x => x.user_id == user.id)
                 .Select(x => new GetOrderByUserrResponse
                 {
+                    id = x.id,
                     date = x.date,
                     total_price = x.total_price,
                     status = x.status,
@@ -88,5 +90,16 @@ namespace Pandu_Gogi_Backend.Controllers
             return Ok(order);
         }
 
+        [HttpPut("status")]
+        public IActionResult UpdateStatus(OrderStatusDto orderStatusDto)
+        {
+            var order = db.orderHeaders.FirstOrDefault(x => x.id == orderStatusDto.order_id);
+            if (order == null) return BadRequest(new { message = "Order not found" });
+
+            order.status = orderStatusDto.status;
+            db.SaveChanges();
+
+            return Ok(new {order = order});  
+        }
     }
 }
