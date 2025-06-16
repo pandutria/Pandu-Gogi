@@ -8,6 +8,6 @@ namespace Pandu_Gogi_Backend.Models.Dtos.OrderHeader
         public DateTime date { get; set; }
         public int total_price { get; set; }
         public string status { get; set; }
-        //public OrderDetailDto menu { get; set; }
+        public List<OrderDetailMenuDto> order { get; set; }
     }
 }

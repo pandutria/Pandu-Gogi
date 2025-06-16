@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pandu_Gogi_Backend.Data;
+using Pandu_Gogi_Backend.Models.Dtos.Category;
+using Pandu_Gogi_Backend.Models.Dtos.Menu;
 using Pandu_Gogi_Backend.Models.Dtos.OrderDetail;
 using Pandu_Gogi_Backend.Models.Dtos.OrderHeader;
 using Pandu_Gogi_Backend.Models.Dtos.User;
@@ -59,14 +61,16 @@ namespace Pandu_Gogi_Backend.Controllers
                     isAdmin = orderUser.user.isAdmin,
                 };
 
-                var response = new CreateOrderResponse {
+                var response = new CreateOrderResponse
+                {
                     OrderHeader = orderHeaderDto,
                     user = userDto
                 };
 
                 return StatusCode(201, new { oder = response });
 
-            } catch (Exception err)
+            }
+            catch (Exception err)
             {
                 return BadRequest(err.Message);
             }
@@ -78,17 +82,48 @@ namespace Pandu_Gogi_Backend.Controllers
         {
             var user_id = User.FindFirst("id").Value;
             var user = db.users.FirstOrDefault(x => x.id.ToString() == user_id);
-            var order = db.orderHeaders.Include(x => x.OrderDetails).Where(x => x.user_id == user.id)
+
+            var order = db.orderHeaders
+                .Include(x => x.OrderDetails)
+                .Where(x => x.user_id == user.id)
                 .Select(x => new GetOrderByUserrResponse
                 {
                     id = x.id,
                     date = x.date,
                     total_price = x.total_price,
                     status = x.status,
-                });
+                    order = x.OrderDetails
+                        .Where(y => y.order_header_id == x.id)
+                        .Select(y => new OrderDetailMenuDto
+                        {
+                            menu_id = y.menu_id,
+                            qty = y.qty,
+                            menu = db.menus
+                                .Where(z => z.id == y.menu_id)
+                                .Select(z => new OrderDetailMenuResponse
+                                {
+                                    id = z.id,
+                                    category_id = z.category_id,
+                                    name = z.name,
+                                    description = z.description,
+                                    price = z.price,
+                                    image_url = z.image_url,
+                                    category = db.categories
+                                        .Where(a => a.id == z.category_id)
+                                        .Select(a => new OrderDetailMenuCategoryResponse
+                                        {
+                                            id = a.id,
+                                            name = a.name,
+                                        })
+                                        .FirstOrDefault() // ambil 1 kategori
+                                })
+                                .FirstOrDefault() // ambil 1 menu
+                        }).ToList()
+                }).ToList();
 
             return Ok(order);
         }
+
 
         [HttpPut("status")]
         public IActionResult UpdateStatus(OrderStatusDto orderStatusDto)
@@ -99,7 +134,7 @@ namespace Pandu_Gogi_Backend.Controllers
             order.status = orderStatusDto.status;
             db.SaveChanges();
 
-            return Ok(new {order = order});  
+            return Ok(new { order = order });
         }
     }
 }
