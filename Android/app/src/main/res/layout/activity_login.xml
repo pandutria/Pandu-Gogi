@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.ui.activity.LoginActivity">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/login"
+        android:scaleType="centerCrop"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/layoutLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bkg_auth"
+        android:clipToOutline="true"
+        android:paddingTop="20dp"
+        android:paddingBottom="35dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login To Your Account!"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="18sp"
+            android:textColor="@color/primary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Access your orders, track your favorites, and enjoy a personalized Korean dining experience."
+            android:textAlignment="center"
+            android:textColor="@color/lightGray"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="13sp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"
+            android:layout_marginTop="25dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bkg_input"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="15dp"
+            android:gravity="center_vertical">
+
+            <!-- Icon -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/img_4"/>
+
+            <View
+                android:layout_width="1.5dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/lightGray" />
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Input your username"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="15sp"
+                android:paddingLeft="15dp"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"
+            android:layout_marginTop="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bkg_input"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="15dp"
+            android:gravity="center_vertical">
+
+            <!-- Icon -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/img_5"/>
+
+            <View
+                android:layout_width="1.5dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@color/lightGray" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Input your password"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="15sp"
+                android:paddingLeft="15dp"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal">
+
+            <ProgressBar
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:id="@+id/pb"
+                android:indeterminateTint="@color/primary"
+                android:visibility="gone"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:backgroundTint="@color/primary"
+                android:text="Login"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lightGray"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="15sp"
+                android:text="Don't have an account?"/>
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Register"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
